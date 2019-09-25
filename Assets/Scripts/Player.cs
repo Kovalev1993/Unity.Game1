@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -20,9 +21,24 @@ public class Player : MonoBehaviour
             _rb.AddForce(JumpForce * Vector2.up, ForceMode2D.Impulse);
             _inAir = true;
         }
+        // Чтобы шарик не катился от лёгкого прикосновения за край уровня.
+        _rb.velocity = new Vector2(0, _rb.velocity.y);
+
+        // Если ушли за левый край уровня
+        if(transform.position.x <= GM.leftBorder) {
+            SceneManager.LoadScene("Menu");
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D coll){
         _inAir = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if(collision.gameObject.CompareTag("Coin")) {
+            Destroy(collision.gameObject);
+            _coins++;
+            GM.ChangeCoinsText(_coins);
+        }
     }
 }
