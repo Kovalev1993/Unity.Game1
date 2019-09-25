@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3143843438123592853}
   - component: {fileID: 3722238423767311046}
   m_Layer: 9
-  m_Name: Box
-  m_TagString: Box
+  m_Name: Barrier
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,10 +63,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3143843438123592850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a026f2be74d66974287b014b051b82c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ff279b57e20f42428a0f512c7c010f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseSpeed: 2
 --- !u!1 &3143843438347188836
 GameObject:
   m_ObjectHideFlags: 0

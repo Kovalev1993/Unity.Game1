@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UI : MonoBehaviour
+public class UIMenu : MonoBehaviour
 {
     public Animator AuthorsPanelAnimator;
 
