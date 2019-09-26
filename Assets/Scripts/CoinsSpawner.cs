@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class CoinsSpawner : MonoBehaviour
 {
+    public Jumping Jumping { get; private set; }
+
     [SerializeField] private GameObject _coinPrefab;
     [SerializeField] private LevelSpeed _levelSpeed;
     [SerializeField] private float _spawnCooldown;
     [SerializeField] private float _newCoinCooldown;
     [SerializeField] private int _minCoins;
     [SerializeField] private int _maxCoins;
-
     private float _spawnTimer;
     private float _newCoinTimer;
     private int _coinsToInstantiate;
 
     private void Start()
     {
+        Jumping = GetComponent<Jumping>();
         _spawnTimer = _spawnCooldown;
         _newCoinTimer = 0;
     }

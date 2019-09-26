@@ -5,37 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private UIGame _ui;
+    public float JumpForce { get; private set; }
+
+    [SerializeField] private UIGameLevel _ui;
     [SerializeField] private float _jumpForce;
 
     private Rigidbody2D _rb;
+    private Jumping _jumping;
     private int _coins = 0;
     private bool _inAir = false;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _jumping = GetComponent<Jumping>();
+        JumpForce = _jumpForce;
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space) && !_inAir)
         {
-            _rb.AddForce(_jumpForce * Vector2.up, ForceMode2D.Impulse);
             _inAir = true;
+            _jumping.Jump(_jumpForce);
         }
 
-        StopIertiaMovement();
+        StopInertiaMovement();
     }
 
-    private void StopIertiaMovement()
+    private void StopInertiaMovement()
     {
         _rb.velocity = new Vector2(0, _rb.velocity.y);
-    }
-
-    public float GetJumpForce()
-    {
-        return _jumpForce;
     }
 
     private void OnCollisionEnter2D(Collision2D coll)

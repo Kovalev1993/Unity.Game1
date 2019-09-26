@@ -7,7 +7,7 @@ public class LeftBorder : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.name == "PlayerSkin")
+        if(collider.GetComponentInParent<Player>() != null)
             SceneManager.LoadScene("Menu");
         else
             Destroy(collider.gameObject);

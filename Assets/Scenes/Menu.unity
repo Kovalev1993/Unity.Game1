@@ -1315,7 +1315,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1407665469}
-        m_MethodName: AuthorsButton
+        m_MethodName: ToggleAuthorsPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1394,7 +1394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2379d0e945a20b546af3e50521fd3dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AuthorsPanelAnimator: {fileID: 966734740}
+  _authorsPanelAnimator: {fileID: 966734740}
 --- !u!4 &1407665470
 Transform:
   m_ObjectHideFlags: 0

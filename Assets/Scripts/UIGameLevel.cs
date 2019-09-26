@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UIGame : MonoBehaviour
+public class UIGameLevel : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _coinsText;
 
