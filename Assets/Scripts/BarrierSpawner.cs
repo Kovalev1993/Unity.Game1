@@ -32,7 +32,7 @@ public class BarrierSpawner : MonoBehaviour
             CreateBarrier(barrierPositionIsDown);
 
             if(barrierPositionIsDown)
-                _coinsSpawner.Jumping.Jump(_player.JumpForce);
+                _coinsSpawner.JumpinComponent.Jump(_player.JumpForce);
         }
         _spawnTimer -= Time.deltaTime;
     }
