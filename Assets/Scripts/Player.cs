@@ -5,21 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float JumpForce { get; private set; }
+    public float JumpForce => _jumpForce;
 
     [SerializeField] private UIGameLevel _ui;
     [SerializeField] private float _jumpForce;
 
     private Rigidbody2D _rb;
     private Jumping _jumping;
-    private int _coins = 0;
+    private int _coinsNumber = 0;
     private bool _inAir = false;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _jumping = GetComponent<Jumping>();
-        JumpForce = _jumpForce;
     }
 
     private void Update()
@@ -48,8 +47,8 @@ public class Player : MonoBehaviour
         if(collision.gameObject.CompareTag("Coin"))
         {
             Destroy(collision.gameObject);
-            _coins++;
-            _ui.ChangeCoinsText(_coins);
+            _coinsNumber++;
+            _ui.ChangeCoinsText(_coinsNumber);
         }
     }
 }

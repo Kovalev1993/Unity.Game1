@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
             transform.Translate(_levelSpeed.Get() * Vector2.left * Time.deltaTime);
     }
 
-    public void Constructor(LevelSpeed levelSpeed)
+    public void SetSpeed(LevelSpeed levelSpeed)
     {
         _levelSpeed = levelSpeed;
     }

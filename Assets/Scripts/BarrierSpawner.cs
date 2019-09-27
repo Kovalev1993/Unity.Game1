@@ -32,7 +32,7 @@ public class BarrierSpawner : MonoBehaviour
             CreateBarrier(barrierPositionIsDown);
 
             if(barrierPositionIsDown)
-                _coinsSpawner.JumpinComponent.Jump(_player.JumpForce);
+                _coinsSpawner.JumpingComponent.Jump(_player.JumpForce);
         }
         _spawnTimer -= Time.deltaTime;
     }
@@ -51,6 +51,6 @@ public class BarrierSpawner : MonoBehaviour
             barrier = Instantiate(_barrierPrefab, _barrierSpawnerDown.position, Quaternion.identity);
         else
             barrier = Instantiate(_barrierPrefab, _barrierSpawnerUp.position, Quaternion.identity);
-        barrier.GetComponent<Movement>().Constructor(_levelSpeed);
+        barrier.GetComponent<Movement>().SetSpeed(_levelSpeed);
     }
 }
