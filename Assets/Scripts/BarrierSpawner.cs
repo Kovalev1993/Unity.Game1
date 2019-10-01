@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class BarrierSpawner : MonoBehaviour
 {
-    enum Position : byte
-    {
-        Down,
-        Top
-    }
-
     [SerializeField] private GameObject _barrierPrefab;
     [SerializeField] private LevelSpeed _levelSpeed;
     [SerializeField] private CoinsSpawner _coinsSpawner;
@@ -19,6 +13,11 @@ public class BarrierSpawner : MonoBehaviour
     [SerializeField] private Transform _barrierSpawnerUp;
 
     private float _spawnTimer;
+    private enum _position : byte
+    {
+        Down,
+        Top
+    }
 
     private void Start()
     {
@@ -33,10 +32,10 @@ public class BarrierSpawner : MonoBehaviour
             _spawnTimer = _spawnCooldown + Random.Range(-1f, 1f);
             ShiftSelfToRight();
 
-            var barrierPosition = Random.Range(0, 2) == 0 ? Position.Down : Position.Top;
+            var barrierPosition = Random.Range(0, 2) == 0 ? _position.Down : _position.Top;
             CreateBarrier(barrierPosition);
 
-            if(barrierPosition == Position.Down)
+            if(barrierPosition == _position.Down)
                 _coinsSpawner.JumpmentComponent.Jump(_player.JumpForce);
         }
         _spawnTimer -= Time.deltaTime;
@@ -49,9 +48,9 @@ public class BarrierSpawner : MonoBehaviour
         transform.position = new Vector3(_coinsSpawner.transform.position.x + 0.5f * ballisticDistance, transform.position.y, 0);
     }
 
-    private void CreateBarrier(Position barrierPosition)
+    private void CreateBarrier(_position barrierPosition)
     {
-        if(barrierPosition == Position.Down)
+        if(barrierPosition == _position.Down)
             Instantiate(_barrierPrefab, _barrierSpawnerDown.position, Quaternion.identity).GetComponent<Movement>().SetSpeed(_levelSpeed);
         else
             Instantiate(_barrierPrefab, _barrierSpawnerUp.position, Quaternion.identity).GetComponent<Movement>().SetSpeed(_levelSpeed);
