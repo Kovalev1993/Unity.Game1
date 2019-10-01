@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class BarrierSpawner : MonoBehaviour
 {
+    enum Position : byte
+    {
+        Down,
+        Top
+    }
+
     [SerializeField] private GameObject _barrierPrefab;
     [SerializeField] private LevelSpeed _levelSpeed;
-    [SerializeField] private Transform _coinsSpawnerTransform;
     [SerializeField] private CoinsSpawner _coinsSpawner;
     [SerializeField] private Player _player;
     [SerializeField] private float _spawnCooldown;
@@ -28,29 +33,27 @@ public class BarrierSpawner : MonoBehaviour
             _spawnTimer = _spawnCooldown + Random.Range(-1f, 1f);
             ShiftSelfToRight();
 
-            var barrierPositionIsDown = Random.Range(0, 2) == 0;
-            CreateBarrier(barrierPositionIsDown);
+            var barrierPosition = Random.Range(0, 2) == 0 ? Position.Down : Position.Top;
+            CreateBarrier(barrierPosition);
 
-            if(barrierPositionIsDown)
-                _coinsSpawner.JumpingComponent.Jump(_player.JumpForce);
+            if(barrierPosition == Position.Down)
+                _coinsSpawner.JumpmentComponent.Jump(_player.JumpForce);
         }
         _spawnTimer -= Time.deltaTime;
     }
 
     private void ShiftSelfToRight()
     {
-        Vector2 vel = new Vector2(_levelSpeed.Get(), _player.JumpForce);
-        float ballisticDistance = Vector2.SqrMagnitude(vel) * Mathf.Sin(2 * Vector2.Angle(new Vector2(0, vel.y), new Vector2(vel.x, 0))) / Physics2D.gravity.y;
-        transform.position = new Vector3(_coinsSpawnerTransform.position.x + 0.5f * ballisticDistance, transform.position.y, 0);
+        Vector2 velocity = new Vector2(_levelSpeed.Get(), _player.JumpForce);
+        float ballisticDistance = Vector2.SqrMagnitude(velocity) * Mathf.Sin(2 * Vector2.Angle(new Vector2(0, velocity.y), new Vector2(velocity.x, 0))) / Physics2D.gravity.y;
+        transform.position = new Vector3(_coinsSpawner.transform.position.x + 0.5f * ballisticDistance, transform.position.y, 0);
     }
 
-    private void CreateBarrier(bool downPosition)
+    private void CreateBarrier(Position barrierPosition)
     {
-        GameObject barrier = null;
-        if(downPosition)
-            barrier = Instantiate(_barrierPrefab, _barrierSpawnerDown.position, Quaternion.identity);
+        if(barrierPosition == Position.Down)
+            Instantiate(_barrierPrefab, _barrierSpawnerDown.position, Quaternion.identity).GetComponent<Movement>().SetSpeed(_levelSpeed);
         else
-            barrier = Instantiate(_barrierPrefab, _barrierSpawnerUp.position, Quaternion.identity);
-        barrier.GetComponent<Movement>().SetSpeed(_levelSpeed);
+            Instantiate(_barrierPrefab, _barrierSpawnerUp.position, Quaternion.identity).GetComponent<Movement>().SetSpeed(_levelSpeed);
     }
 }

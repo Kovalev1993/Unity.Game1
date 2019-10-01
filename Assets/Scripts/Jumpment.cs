@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jumping : MonoBehaviour
+public class Jumpment : MonoBehaviour
 {
     private Rigidbody2D _rb;
 

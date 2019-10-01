@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinsSpawner : MonoBehaviour
 {
-    public Jumping JumpingComponent { get; private set; }
+    public Jumpment JumpmentComponent { get; private set; }
 
     [SerializeField] private GameObject _coinPrefab;
     [SerializeField] private LevelSpeed _levelSpeed;
@@ -19,7 +19,7 @@ public class CoinsSpawner : MonoBehaviour
 
     private void Start()
     {
-        JumpingComponent = GetComponent<Jumping>();
+        JumpmentComponent = GetComponent<Jumpment>();
         _spawnTimer = _spawnCooldown;
         _newCoinTimer = 0;
     }

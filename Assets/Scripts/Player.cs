@@ -11,14 +11,14 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpForce;
 
     private Rigidbody2D _rb;
-    private Jumping _jumping;
+    private Jumpment _jumpment;
     private int _coinsNumber = 0;
     private bool _inAir = false;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _jumping = GetComponent<Jumping>();
+        _jumpment = GetComponent<Jumpment>();
     }
 
     private void Update()
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && !_inAir)
         {
             _inAir = true;
-            _jumping.Jump(_jumpForce);
+            _jumpment.Jump(_jumpForce);
         }
 
         StopInertiaMovement();
