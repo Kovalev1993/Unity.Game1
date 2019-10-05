@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private LevelSpeed _levelSpeed;
+    [SerializeField] private LevelSpeed _levelSpeed;
 
     private void Update()
     {
         if(_levelSpeed != null)
-            transform.Translate(_levelSpeed.Get() * Vector2.left * Time.deltaTime);
-    }
-
-    public void SetSpeed(LevelSpeed levelSpeed)
-    {
-        _levelSpeed = levelSpeed;
+            transform.Translate(_levelSpeed.Get() * Vector2.right * Time.deltaTime);
     }
 }

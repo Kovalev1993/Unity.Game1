@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Jumpment : MonoBehaviour
 {
+    public float JumpForce => _jumpForce;
+
+    [SerializeField] private float _jumpForce;
     private Rigidbody2D _rb;
 
     private void Start()
@@ -11,8 +14,8 @@ public class Jumpment : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Jump(float force)
+    public void Jump()
     {
-        _rb.AddForce(force * Vector2.up, ForceMode2D.Impulse);
+        _rb.AddForce(_jumpForce * Vector2.up, ForceMode2D.Impulse);
     }
 }

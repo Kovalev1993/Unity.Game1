@@ -2,52 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinsSpawner : MonoBehaviour
+public class CoinsSpawner : Spawner
 {
-    public Jumpment JumpmentComponent { get; private set; }
-
-    [SerializeField] private GameObject _coinPrefab;
-    [SerializeField] private LevelSpeed _levelSpeed;
-    [SerializeField] private float _spawnCooldown;
     [SerializeField] private float _newCoinCooldown;
     [SerializeField] private int _minCoins;
     [SerializeField] private int _maxCoins;
 
-    private float _spawnTimer;
-    private float _newCoinTimer;
-    private int _coinsToInstantiate;
-
-    private void Start()
+    protected override Vector2 GetNextPosition()
     {
-        JumpmentComponent = GetComponent<Jumpment>();
-        _spawnTimer = _spawnCooldown;
-        _newCoinTimer = 0;
+        return transform.position;
     }
 
-    private void Update()
+    protected override void Spawn()
     {
-        _spawnTimer -= Time.deltaTime;
-        if(_spawnTimer <= 0)
-            StartCoinsLine();
-
-        if(_newCoinTimer <= 0 && _coinsToInstantiate > 0)
-            CreateCoin();
-        else
-            _newCoinTimer -= Time.deltaTime;
+        _lastSpawnTime = Time.time;
+        StartCoroutine("CreateCoin", Random.Range(_minCoins, _maxCoins + 1));
     }
 
-    private void StartCoinsLine()
+    private IEnumerator CreateCoin(int coinsToInstantiate)
     {
-        _spawnTimer = _spawnCooldown + Random.Range(-1f, 1f);
-        _coinsToInstantiate = Random.Range(_minCoins, _maxCoins + 1);
-        _newCoinTimer = _newCoinCooldown;
-    }
-
-    private void CreateCoin()
-    {
-        GameObject coin = Instantiate(_coinPrefab, transform.position, Quaternion.identity);
-        coin.GetComponent<Movement>().SetSpeed(_levelSpeed);
-        _newCoinTimer = _newCoinCooldown;
-        _coinsToInstantiate--;
+        for(int i = 0; i < coinsToInstantiate; i++)
+        {
+            _lastPosition = Instantiate(_prefab, GetNextPosition(), Quaternion.identity).transform.position;
+            yield return new WaitForSeconds(_newCoinCooldown);
+        }
     }
 }

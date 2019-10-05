@@ -5,10 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float JumpForce => _jumpForce;
-
     [SerializeField] private UIGameLevel _ui;
-    [SerializeField] private float _jumpForce;
 
     private Rigidbody2D _rb;
     private Jumpment _jumpment;
@@ -26,7 +23,7 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && !_inAir)
         {
             _inAir = true;
-            _jumpment.Jump(_jumpForce);
+            _jumpment.Jump();
         }
 
         StopInertiaMovement();
